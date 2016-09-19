@@ -3,6 +3,7 @@ extends RigidBody
 var shotFired = false
 var shotCount = 0
 var prev_Fired = false
+var prev_Hyper = false
 var Ship_rad = 1.15
 var Ship_pos = Vector3(0, 0, 0)
 var Ship_hit = false
@@ -53,14 +54,16 @@ func _process(delta):
 		var shipRot = get_node("/root/Asteroids/Player/Ship").get_rotation().z
 		self.apply_impulse(Vector3(0, 0, 0), Vector3(cos(shipRot), sin(shipRot), 0) * delta * 2)
 
-	if (Input.is_action_pressed("Hyperspace")):
-		pass
-
+	var hyper = Input.is_action_pressed("Hyperspace")
 	var fire = Input.is_action_pressed("Fire")
 
 	if (fire and !prev_Fired and shotCount < 4 and !shotFired):
 		FireShot()
 
+	if (hyper and !prev_Hyper):
+		self.set_translation(Vector3(rand_range(-37, 37), rand_range(-30, 30), 0))
+
+	prev_Hyper = hyper
 	prev_Fired = fire
 
 
