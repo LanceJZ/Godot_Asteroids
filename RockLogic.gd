@@ -50,9 +50,17 @@ func Destroy():
 
 func LargeRock():
 	speed += randf() * 3
-	rock_pos = Vector3(37.75, randf() *60 - 30, 0)
-	self.set_translation(rock_pos)
+	var rockX
 	Direction()
+
+	if (rock_Velocity.x > 0):
+		rockX = -37.75
+
+	if (rock_Velocity.x < 0):
+		rockX = 37.75
+
+	rock_pos = Vector3(rockX, randf() *60 - 30, 0)
+	self.set_translation(rock_pos)
 
 
 func MedRock(var pos):
@@ -89,7 +97,7 @@ func CheckCollision():
 	var playershots = get_tree().get_nodes_in_group("PlayerShot")
 
 	for shot in playershots:
-		if (shot.CirclesIntersect(rock_pos, rock_rad)):
+		if (shot.CirclesIntersect(rock_pos, rock_rad) && !shot.is_hidden()):
 			if (rock_Type == 2):
 				get_node("/root/Asteroids").PlayerHit(100)
 

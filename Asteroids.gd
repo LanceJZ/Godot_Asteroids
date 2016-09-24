@@ -11,6 +11,7 @@ var SafeSpawn_pos = Vector3(0, 0, 0)
 var SafeSpawn_rad = 10
 var PlayerScore = 0
 var PlayerHighScore = 0
+var PlayerNextShipScore = 0
 var PlayerLives = 4
 var playerHit = false
 var playerSpawn = false
@@ -53,6 +54,11 @@ func SmallRockHit():
 func PlayerHit(score):
 	PlayerScore += score
 	get_node("HUD").ProcessScore(PlayerScore)
+
+	if (PlayerScore > PlayerNextShipScore):
+		PlayerLives += 1
+		PlayerNextShipScore += 10000
+		get_node("HUD").ProcessPlayerLives(PlayerLives)
 
 	if (PlayerScore > PlayerHighScore):
 		PlayerHighScore = PlayerScore
@@ -98,6 +104,7 @@ func NewGame():
 	numberOfLargeRocks = 4
 	numberOfMedRocks = 0
 	numberOfSmallRocks = 0
+	PlayerNextShipScore = 10000
 
 	var rocks = get_tree().get_nodes_in_group("Rock")
 
