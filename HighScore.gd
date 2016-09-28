@@ -5,10 +5,10 @@ func ClearMesh():
 	self.clear()
 
 
-func ProcessMesh(var Xstart, var Ystart, var Xend, var Yend):
+func ProcessMesh(var LineStart, var LineEnd):
 	self.begin(VS.PRIMITIVE_LINES, null)
-	self.add_vertex(Vector3(Xstart, Ystart, 0.0))
-	self.add_vertex(Vector3(Xend, Yend, 0.0))
+	self.add_vertex(LineStart)
+	self.add_vertex(LineEnd)
 	self.end()
 
 

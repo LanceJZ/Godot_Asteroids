@@ -27,6 +27,7 @@ func _process(delta):
 		PlayerLives -= 1
 		playerHit = false
 		get_node("HUD").ProcessPlayerLives(PlayerLives)
+
 		if (PlayerLives > 0):
 			playerSpawn = true
 	
@@ -105,6 +106,8 @@ func NewGame():
 	numberOfMedRocks = 0
 	numberOfSmallRocks = 0
 	PlayerNextShipScore = 10000
+	get_node("HUD").ProcessScore(PlayerScore)
+	get_node("HUD").ProcessHighScore(PlayerScore)
 
 	var rocks = get_tree().get_nodes_in_group("Rock")
 
